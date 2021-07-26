@@ -32,7 +32,8 @@ pip install requests
 #### 4、执行方法填写“main.py”
 #### 5、触发器配置请自行定义
 
-#### 注意：不要fork后将个人信息填写到自己仓库`config.ini`文件中，请下载到本地编辑，以免隐私泄露。
+### 注意：
+#### 不要fork后将个人信息填写到自己仓库`config.ini`文件中，请下载到本地编辑，以免隐私泄露。
 #### cookies 和 User-Agent 信息请自行在手机登录 `欢太商城` APP后使用HttpCanary等抓包工具获取！
 > (具体抓包方式请百度/Google)
 
