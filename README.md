@@ -26,11 +26,11 @@ pip install requests
  python main.py
 ```
 ### 腾讯云函数
-转到[腾讯云函数](https://console.cloud.tencent.com/scf/index?rid=1)
-在[函数服务](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)里点击新建
-创建方式选择“自定义创建”，函数名称请自行命名，运行环境选择“Python3.6”，提交方法选择“本地上传zip包”，然后点击“上传”，上传本项目代码压缩包
-执行方法填写“main.py”
-触发器配置请自行定义
+#### 1、转到[腾讯云函数](https://console.cloud.tencent.com/scf/index?rid=1)
+#### 2、在[函数服务](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)里点击新建
+#### 3、创建方式选择“自定义创建”，函数名称请自行命名，运行环境选择“Python3.6”，提交方法选择“本地上传zip包”，然后点击“上传”，上传本项目代码压缩包
+#### 4、执行方法填写“main.py”
+#### 5、触发器配置请自行定义
 
 #### 注意：不要fork后将个人信息填写到自己仓库`config.ini`文件中，请下载到本地编辑，以免隐私泄露。
 #### cookies 和 User-Agent 信息请自行在手机登录 `欢太商城` APP后使用HttpCanary等抓包工具获取！
