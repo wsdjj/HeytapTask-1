@@ -34,13 +34,13 @@ pip install requests
 ### 腾讯云函数
 #### 1、下载本项目-[点此下载](https://github.com/QiYueYiya/HeytapTask/releases/download/v1.0/HeytapTask-v1.0.zip)
 #### 2、转到[腾讯云函数](https://console.cloud.tencent.com/scf/index?rid=1)，在[函数服务](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)里点击新建
-![a.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/a.png?token=APOZBM3EL6IW5UCB52QUXIDA75J5I)
+![a.png](https://gitee.com/qiyueyi/cWl5dWV5aQ/raw/master/HeytapTask/a.png)
 #### 3、创建方式选择“自定义创建”，函数名称请自行命名，运行环境选择“Python3.6”，提交方法选择“本地上传zip包”，然后点击“上传”，上传本项目代码压缩包
-![b.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/b.png?token=APOZBM3XLEMJXMPUAFNWNVLA75JMI)
+![b.png](https://gitee.com/qiyueyi/cWl5dWV5aQ/raw/master/HeytapTask/b.png)
 #### 4、执行方法填写“main.main”，触发器配置请自行定义
-![c.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/c.png?token=APOZBMYXLWGFVP2LINA4CHTA75JNA)
+![c.png](https://gitee.com/qiyueyi/cWl5dWV5aQ/raw/master/HeytapTask/c.png)
 #### 5、进入刚刚创建的云函数，点击函数代码，选中“config.ini”文件，填入欢太商城的Cookies和User-Agent
-![d.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/d.png?token=APOZBM2SO2BL5QBHJRVRGWLA75JNY)
+![d.png](https://gitee.com/qiyueyi/cWl5dWV5aQ/raw/master/HeytapTask/d.png)
 
 ## 通知推送方式
 
