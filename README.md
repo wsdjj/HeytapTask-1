@@ -34,7 +34,7 @@ pip install requests
 ### 腾讯云函数
 #### 1、下载本项目-[点此下载](https://github.com/QiYueYiya/HeytapTask/releases/download/v1.0/HeytapTask-v1.0.zip)
 #### 2、转到[腾讯云函数](https://console.cloud.tencent.com/scf/index?rid=1)，在[函数服务](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)里点击新建
-![a.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/a.png?token=APOZBM4NQTSWIXSSMUFROHLA75JK4)
+![a.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/a.png?token=APOZBM3EL6IW5UCB52QUXIDA75J5I)
 #### 3、创建方式选择“自定义创建”，函数名称请自行命名，运行环境选择“Python3.6”，提交方法选择“本地上传zip包”，然后点击“上传”，上传本项目代码压缩包
 ![b.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/b.png?token=APOZBM3XLEMJXMPUAFNWNVLA75JMI)
 #### 4、执行方法填写“main.main”，触发器配置请自行定义
