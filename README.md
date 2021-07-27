@@ -13,6 +13,12 @@
 * [x] 可选 钉钉通知、Tg通知、pushplus推送加、企业微信、Bark通知、IFTTT通知 功能
 
 ## 使用说明
+
+### 注意：
+#### 不要fork后将个人信息填写到自己仓库`config.ini`文件中，请下载到本地编辑，以免隐私泄露。
+#### cookies 和 User-Agent 信息请自行在手机登录 `欢太商城` APP后使用HttpCanary等抓包工具获取！
+> (具体抓包方式请百度/Google)
+
 ### 本地执行
 > 本项目使用 python3 实现
 #### 1、下载本项目-[点此下载](https://github.com/QiYueYiya/HeytapTask/releases/download/v1.0/HeytapTask-v1.0.zip)
@@ -35,12 +41,6 @@ pip install requests
 ![c.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/c.png?token=APOZBMYXLWGFVP2LINA4CHTA75JNA)
 #### 5、进入刚刚创建的云函数，点击函数代码，选中“config.ini”文件，填入欢太商城的Cookies和User-Agent
 ![d.png](https://raw.githubusercontent.com/QiYueYiya/HeytapTask/main/Picture/d.png?token=APOZBM2SO2BL5QBHJRVRGWLA75JNY)
-
-### 注意：
-#### 不要fork后将个人信息填写到自己仓库`config.ini`文件中，请下载到本地编辑，以免隐私泄露。
-#### cookies 和 User-Agent 信息请自行在手机登录 `欢太商城` APP后使用HttpCanary等抓包工具获取！
-> (具体抓包方式请百度/Google)
-
 
 ## 通知推送方式
 
