@@ -21,7 +21,7 @@
 
 ### 本地执行
 > 本项目使用 python3 实现
-#### 1、下载本项目-[点此下载](https://github.com/QiYueYiya/HeytapTask.git)
+#### 1、下载本项目-[点此下载](https://codeload.github.com/QiYueYiya/HeytapTask/zip/refs/heads/main)
 #### 2、解压后用文本编辑器 打开`config.ini`按注释说明进行填写
 #### 3、需要安装的依赖
 ```
@@ -32,7 +32,7 @@ pip install requests
  python main.py
 ```
 ### 腾讯云函数
-#### 1、下载本项目-[点此下载](https://github.com/QiYueYiya/HeytapTask.git)
+#### 1、下载本项目-[点此下载](https://codeload.github.com/QiYueYiya/HeytapTask/zip/refs/heads/main)
 #### 2、转到[腾讯云函数](https://console.cloud.tencent.com/scf/index?rid=1)，在[函数服务](https://console.cloud.tencent.com/scf/list?rid=1&ns=default)里点击新建
 #### 3、创建方式选择[自定义创建]，[函数名称]请自行命名，[运行环境]选择“Python3.6”，[提交方法]选择“本地上传zip包”，然后点击“上传”，上传本项目代码压缩包
 #### 4、[高级配置]-[执行超时时间]设置为900秒，[触发器配置]请自行定义
