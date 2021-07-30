@@ -36,7 +36,7 @@ pip install requests
 ```
 #### 4、执行方法 命令行or终端 转到程序源码目录下 执行
 ```bash
- python main.py
+ python index.py
 ```
 ### 腾讯云函数
 #### 1、下载本项目-[点此下载](https://codeload.github.com/QiYueYiya/HeytapTask/zip/refs/heads/main)
