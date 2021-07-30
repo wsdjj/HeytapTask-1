@@ -19,12 +19,13 @@
 * [x] OPPO-0元赢积分
 * [x] 可选 钉钉通知、Tg通知、pushplus推送加、企业微信、Bark通知、IFTTT通知 功能
 
-## 使用说明
-
-### 注意：
-#### 不要fork后将个人信息填写到自己仓库`config.ini`文件中，请下载到本地编辑，以免隐私泄露。
-#### cookies 和 User-Agent 信息请自行在手机登录 `欢太商城` APP后使用HttpCanary等抓包工具获取！
+## 使用注意
+* 部分域名屏蔽境外IP访问，所以本项目不适于在 非中国IP代理网络下 / Github Actions / 境外VPS 上运行!
+* 不要fork后将个人信息填写到自己仓库`config.ini`文件中，请下载到本地编辑，以免隐私泄露。
+* cookies 和 User-Agent 信息请自行在手机登录 `欢太商城` APP后使用HttpCanary等抓包工具获取！
 > (具体抓包方式请百度/Google)
+
+## 使用说明
 
 ### 本地执行
 > 本项目使用 python3 实现
@@ -77,8 +78,7 @@ pip install requests
 
 类似于钉钉机器人，只需要一个`Key`，IOS安装Bark即可获取Key[使用文档](https://github.com/Finb/Bark/blob/master/README.md)
 
-## 使用注意
-* 部分域名屏蔽境外IP访问，所以本项目不适于在 非中国IP代理网络下 / Github Actions / 境外VPS 上运行!
+
 
 ## 申明
 
