@@ -293,8 +293,324 @@ def cashingCredits(info_marking,info_type,info_credits):
     else:
         return False
 
+#活动平台抽奖通用接口
+def lottery(datas):
+    headers = {
+    'clientPackage': 'com.oppo.store',
+    'Accept': 'application/json, text/plain, */*;q=0.01',
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    'Connection': 'keep-alive',
+    'User-Agent': HT_UserAgent,
+    'Accept-Encoding': 'gzip, deflate',
+    'cookie': HT_cookies,
+    'Origin': 'https://hd.oppo.com',
+    'X-Requested-With': 'XMLHttpRequest',
+    }
+    res = client.post('https://hd.oppo.com/platform/lottery', data=datas, headers=headers)
+    res = res.json()
+    return res
+
+#活动平台完成任务接口
+def task_finish(aid,t_index):
+    headers = {
+    'Accept': 'application/json, text/plain, */*;q=0.01',
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    'Connection': 'keep-alive',
+    'User-Agent': HT_UserAgent,
+    'Accept-Encoding': 'gzip, deflate',
+    'cookie': HT_cookies,
+    'Origin': 'https://hd.oppo.com',
+    'X-Requested-With': 'XMLHttpRequest',
+    }
+    datas="aid=" + str(aid) + "&t_index=" + str(t_index)
+    res = client.post('https://hd.oppo.com/task/finish', data=datas, headers=headers)
+    res = res.json()
+    return res
+
+#活动平台领取任务奖励接口
+def task_award(aid,t_index):
+    headers = {
+    'Accept': 'application/json, text/plain, */*;q=0.01',
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    'Connection': 'keep-alive',
+    'User-Agent': HT_UserAgent,
+    'Accept-Encoding': 'gzip, deflate',
+    'cookie': HT_cookies,
+    'Origin': 'https://hd.oppo.com',
+    'X-Requested-With': 'XMLHttpRequest',
+    }
+    datas="aid=" + str(aid) + "&t_index=" + str(t_index)
+    res = client.post('https://hd.oppo.com/task/award', data=datas, headers=headers)
+    res = res.json()
+    return res
+
+#天天积分翻倍活动 - 长期 最多3次
+def tiantianjifen_lottery():
+    x=1
+    while x <= 3:
+        data = "aid=675&lid=1289&mobile=&authcode=&captcha=&isCheck=0&source_type=501&s_channel=oppo_appstore&sku=&spu="
+        res = lottery(data)
+        msg = res['msg']
+        print(msg)
+        goods_name = res['data']['goods_name']
+        if len(goods_name) == 0:
+            logger.info('【天天积分翻倍活动】第'+ str(x) +'次，未中奖')
+        else:
+            logger.info('【天天积分翻倍活动】第'+ str(x) +'次，获得:'+ str(goods_name))
+        x += 1
+        time.sleep(3)
+
+#位置: APP → 我的 → 赚积分 → 转盘
+def zhuanjifen_task():
+    headers = {
+    'Accept': '*/*',
+    'Connection': 'keep-alive',
+    'User-Agent': HT_UserAgent,
+    'Accept-Encoding': 'gzip, deflate',
+    'cookie': HT_cookies,
+    'X-Requested-With': 'XMLHttpRequest',
+    'referer':'https://hd.oppo.com/act/m/2021/jifenzhuanpan/index.html?us=gerenzhongxin&um=hudongleyuan&uc=yingjifen'
+    }
+    data = "aid=1418&lid=1307&mobile=&authcode=&captcha=&isCheck=0&source_type=501&s_channel=oppo_appstore&sku=&spu="
+    res = lottery(data)
+    print(res)
+    goods_name = res['data']['goods_name']
+    msg = res['msg']
+    if len(goods_name) == 0:
+        logger.info('【赚积分-天天抽奖】: 未中奖！')
+    else:
+        logger.info('【赚积分-天天抽奖】获得:'+ str(goods_name))
+    taskList=client.get('https://hd.oppo.com/task/list?aid=1418', headers=headers)
+    taskList=taskList.json()
+    for jobs in taskList['data']:
+        print (jobs['t_status']) #print (jobs.get('t_index'))
+        if jobs['t_status'] == 0:
+            t_index=jobs['t_index']
+            aid=t_index[:t_index.index("i")]
+            finishmsg=task_finish (aid,t_index)
+            if finishmsg['no'] == '200':
+                time.sleep(3)
+                awardmsg=task_award(aid,t_index)
+                if awardmsg['no'] == '200':
+                    time.sleep(3)
+                    res = lottery(data)
+                    msg = res['msg']
+                    print(msg)
+                    goods_name = res['data']['goods_name']
+                    if len(goods_name) == 0:
+                        logger.info('【赚积分-天天抽奖】: 未中奖！')
+                    else:
+                        logger.info('【赚积分-天天抽奖】获得:'+ str(goods_name))
+                    time.sleep(3)
+                else:
+                    print('领取奖励出错：', awardmsg)
+            else:
+                print('完成任务出错：', finishmsg)
+        elif jobs['t_status'] == 1:
+            t_index=jobs['t_index']
+            aid=t_index[:t_index.index("i")]
+            awardmsg=task_award(aid,t_index)
+            if awardmsg['no'] == '200':
+                time.sleep(3)
+                res = lottery(data)
+                msg = res['msg']
+                print(msg)
+                goods_name = res['data']['goods_name']
+                if len(goods_name) == 0:
+                    logger.info('【赚积分-天天抽奖】: 未中奖！')
+                else:
+                    logger.info('【赚积分-天天抽奖】获得:'+ str(goods_name))
+                time.sleep(3)
+            else:
+                print('领取奖励出错：', awardmsg)
+
+
+#智能生活0元抽奖-宠粉转盘
+def zhinengshenghuo_lottery():
+    x=1
+    while x <= 5:
+        data = "aid=1270&lid=1431&mobile=&authcode=&captcha=&isCheck=0&source_type=501&s_channel=oppo_appstore&sku=&spu="
+        res = lottery(data)
+        msg = res['msg']
+        print(msg)
+        goods_name = res['data']['goods_name']
+        if len(goods_name) == 0:
+            logger.info('【智能生活转盘】第'+ str(x) +'次,未中奖！')
+        else:
+            logger.info('【智能生活转盘】第'+ str(x) +'次，获得:'+str(goods_name))
+        x += 1
+        time.sleep(3)
+
+#realme宠粉计划-幸运抽奖-转盘
+def realme_lottery():
+    data = "aid=1182&lid=1429&mobile=&authcode=&captcha=&isCheck=0&source_type=501&s_channel=oppo_appstore&sku=&spu="
+    res = lottery(data)
+    msg = res['msg']
+    print(msg)
+    goods_name = res['data']['goods_name']
+    if len(goods_name) == 0:
+        logger.info('【realme宠粉计划转盘】: 未中奖！')
+    else:
+        logger.info('【realme宠粉计划转盘】获得:'+ str(goods_name))
+    time.sleep(3)
+
+#
+#—————短期活动任务↓———————
+#
+
+#超级会员日 瓜分1亿积分转盘抽奖2021.7.12-2021.7.18  每日1次
+def vipdate_lottery():
+    dated = int(time.time())
+    endtime = time.mktime(time.strptime("2021-7-18 23:59:59", '%Y-%m-%d %H:%M:%S'))#设置活动结束日期
+    if dated < endtime :
+        data = "aid=1589&lid=1486&mobile=&authcode=&captcha=&isCheck=0&source_type=501&s_channel=oppo_appstore&sku=&spu="
+        res = lottery(data)
+        #print(res)
+        msg = res['msg']
+        print(msg)
+        goods_name = res['data']['goods_name']
+        if len(goods_name) == 0:
+            logger.info('【瓜分1亿转盘抽奖活动】获得:'+ str(goods_name))
+        else:
+            logger.info('【瓜分1亿转盘抽奖活动】: 未中奖！')
+    else:
+        logger.info('【瓜分1亿转盘抽奖活动已结束，不再执行】')
+    time.sleep(3)
+
+#位置: APP → 首页 → 狂撒百万积分 
+def jifenpengzhang_task():
+    dated = int(time.time())
+    endtime = time.mktime(time.strptime("2021-7-31 23:59:59", '%Y-%m-%d %H:%M:%S'))#设置活动结束日期
+    if dated < endtime :
+        headers = {
+        'Accept': '*/*',
+        'Connection': 'keep-alive',
+        'User-Agent': HT_UserAgent,
+        'Accept-Encoding': 'gzip, deflate',
+        'cookie': HT_cookies,
+        'X-Requested-With': 'XMLHttpRequest',
+        'referer':'https://hd.oppo.com/act/m/2021/jifenzhuanpan/index.html?us=gerenzhongxin&um=hudongleyuan&uc=yingjifen'
+        }
+        """ data = "aid=1594&lid=1482&mobile=&authcode=&captcha=&isCheck=0&source_type=501&s_channel=oppo_appstore&sku=&spu="
+        res = lottery(data)
+        print(res)
+        goods_name = res['data']['goods_name']
+        msg = res['msg']
+        if len(goods_name) == 0:
+            logger.info('【狂撒百万积分-转盘】: 未中奖！')
+        else:
+            logger.info('【狂撒百万积分-转盘】获得:'+ str(goods_name)) """
+        taskList=client.get('https://hd.oppo.com/task/list?aid=1594', headers=headers)
+        taskList=taskList.json()
+        time.sleep(3)
+        for jobs in taskList['data']:
+            print (jobs['t_status'],jobs['title'],jobs['t_index']) #print (jobs.get('t_index'))
+            if jobs['t_status'] == 0:
+                t_index=jobs['t_index']
+                aid=t_index[:t_index.index("i")]
+                title=jobs['title']
+                finishmsg=task_finish (aid,t_index)
+                if finishmsg['no'] == '200':
+                    time.sleep(3)
+                    awardmsg=task_award(aid,t_index)
+                    if awardmsg['no'] == '200':
+                        msg = awardmsg['msg']
+                        print(msg)
+                        logger.info('【狂撒百万积分-'+ str(title) +'】:'+ str(msg))
+                        time.sleep(3)
+                    else:
+                        print('领取奖励出错：', awardmsg)
+                else:
+                    print('完成任务出错：', finishmsg)
+            elif jobs['t_status'] == 1:
+                t_index=jobs['t_index']
+                aid=t_index[:t_index.index("i")]
+                title=jobs['title']
+                awardmsg=task_award(aid,t_index)
+                if awardmsg['no'] == '200':
+                    msg = awardmsg['msg']
+                    print(msg)
+                    logger.info('【狂撒百万积分-'+ str(title) +'】:'+ str(msg))
+                    time.sleep(3)
+                else:
+                    print('领取奖励出错：', awardmsg)
+    else:
+        logger.info('【狂撒百万积分活动已结束，不再执行】')
+    time.sleep(3)
+
+#位置: APP → OPPO → 0元赢积分
+def oppo0yuanzhuanjifen_task():
+    dated = int(time.time())
+    endtime = time.mktime(time.strptime("2021-7-31 23:59:59", '%Y-%m-%d %H:%M:%S'))#设置活动结束日期
+    if dated < endtime :
+        headers = {
+        'Accept': '*/*',
+        'Connection': 'keep-alive',
+        'User-Agent': HT_UserAgent,
+        'Accept-Encoding': 'gzip, deflate',
+        'cookie': HT_cookies,
+        'X-Requested-With': 'XMLHttpRequest',
+        'referer':'https://hd.oppo.com/act/m/2021/oppozhuanjifen/index.html?us=oppochannel&um=zhuanjifen'
+        }
+        data = "aid=1618&lid=1495&mobile=&authcode=&captcha=&isCheck=0&source_type=501&s_channel=oppo_appstore&sku=&spu="
+        res = lottery(data)
+        print(res)
+        goods_name = res['data']['goods_name']
+        msg = res['msg']
+        if len(goods_name) == 0:
+            logger.info('【OPPO0元赚积分-转盘】: 未中奖！')
+        else:
+            logger.info('【OPPO0元赚积分-转盘】获得:'+ str(goods_name))
+        time.sleep(3)
+        taskList=client.get('https://hd.oppo.com/task/list?aid=1618', headers=headers)
+        taskList=taskList.json()
+        for jobs in taskList['data']:
+            print (jobs['t_status'],jobs['title'],jobs['t_index']) #print (jobs.get('t_index'))
+            if jobs['t_status'] == 0:
+                t_index=jobs['t_index']
+                aid=t_index[:t_index.index("i")]
+                finishmsg=task_finish (aid,t_index)
+                if finishmsg['no'] == '200':
+                    time.sleep(3)
+                    awardmsg=task_award(aid,t_index)
+                    if awardmsg['no'] == '200':
+                        time.sleep(3)
+                        res = lottery(data)
+                        msg = res['msg']
+                        print(msg)
+                        goods_name = res['data']['goods_name']
+                        if len(goods_name) == 0:
+                            logger.info('【OPPO0元赚积分-转盘】: 未中奖！')
+                        else:
+                            logger.info('【OPPO0元赚积分-转盘】获得:'+ str(goods_name))
+                        time.sleep(3)
+                    else:
+                        print('领取奖励出错：', awardmsg)
+                else:
+                    print('完成任务出错：', finishmsg)
+            elif jobs['t_status'] == 1:
+                t_index=jobs['t_index']
+                aid=t_index[:t_index.index("i")]
+                awardmsg=task_award(aid,t_index)
+                if awardmsg['no'] == '200':
+                    time.sleep(3)
+                    res = lottery(data)
+                    msg = res['msg']
+                    print(msg)
+                    goods_name = res['data']['goods_name']
+                    if len(goods_name) == 0:
+                        logger.info('【OPPO0元赚积分-转盘】: 未中奖！')
+                    else:
+                        logger.info('【OPPO0元赚积分-转盘】获得:'+ str(goods_name))
+                    time.sleep(3)
+                else:
+                    print('领取奖励出错：', awardmsg)
+    else:
+        logger.info('【OPPO0元赚积分活动已结束，不再执行】')
+    time.sleep(3)
+
 #函数入口
-def main(event, context):
+def main_handler(event, context):
 
     users = readConfig()
     #清空上一个用户的日志记录
@@ -313,6 +629,12 @@ def main(event, context):
         daily_viewgoods() #执行每日商品浏览任务
         daily_sharegoods() #执行每日商品分享任务
         daily_viewpush() #执行每日点推送任务
+        jifenpengzhang_task() #狂撒百万积分-任务&转盘
+        tiantianjifen_lottery() #天天积分翻倍
+        zhuanjifen_task() #我的-赚积分-任务&转盘
+        vipdate_lottery() #超级会员日转盘
+        zhinengshenghuo_lottery() #智能生活-0元抽奖-宠粉转盘 可能此活动中奖率低！            realme_lottery() #realme宠粉计划 转盘
+        oppo0yuanzhuanjifen_task() #OPPO-0元赢积分
 
     if users.has_option("dingding", 'dingtalkWebhook'):
         notify.sendDing(users.get("dingding","dingtalkWebhook"),users.get("dingding","dingtalksecret")) #钉钉推送日记
