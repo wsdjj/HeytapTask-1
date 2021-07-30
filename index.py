@@ -633,7 +633,8 @@ def main_handler(event, context):
         tiantianjifen_lottery() #天天积分翻倍
         zhuanjifen_task() #我的-赚积分-任务&转盘
         vipdate_lottery() #超级会员日转盘
-        zhinengshenghuo_lottery() #智能生活-0元抽奖-宠粉转盘 可能此活动中奖率低！            realme_lottery() #realme宠粉计划 转盘
+        zhinengshenghuo_lottery() #智能生活-0元抽奖-宠粉转盘 可能此活动中奖率低
+        #realme_lottery() #realme宠粉计划转盘
         oppo0yuanzhuanjifen_task() #OPPO-0元赢积分
 
     if users.has_option("dingding", 'dingtalkWebhook'):
